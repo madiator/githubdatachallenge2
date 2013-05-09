@@ -4,7 +4,7 @@
 What are the languages used by Weekend warriors? Or in other words, which languages tend to be more active during the weekends?
 
 
-<img src="Images/allEventhsTh1"/>
+<img src="Images/allEventhsTh1.png"/>
 
 Here, in order to avoid too many languages, I counted only those languages which had consistently all non-zero number of events every single day. (There is a list below which has a bigger list where languages with at activities on least half the number of days are considered).
 
@@ -23,7 +23,7 @@ Here are top-ten languages counted by aggregating all events (the number after t
 
 The corresponding ranking is as follows:
 
-(allEventsPopular)
+<img src="Images/allEventhsPopular.png"/>
 
 
 The complete list (making sure there have been events for at least have of the total number of days):
@@ -111,7 +111,7 @@ Let us take a moment to digest this information.
 Arduino enjoys a good spot at the top, which makes sense, since it is more of a hobby language than a mainstream one. C, C++, Java and other standard languages seem to be at the middle, which makes sense - lots of professionals, but also lots of hobbyists. 
 
 
-!(pushTh1.png)[pushTh1.png]
+<img src="Images/pushEventhsTh1.png"/>
 
 Here are top-ten languages ranked based only on `PushEvents`
 
@@ -129,7 +129,7 @@ Here are top-ten languages ranked based only on `PushEvents`
 
 And the corresponding figure is
 
-(pushEventsPopular)
+<img src="Images/pushEventhsPopular.png"/>
 
 ### Workflow
 Thanks to Google BigQuery, it was a breeze to extract the required information from approximately 60GB of data (of course after many days of tinkering with manually downloading data, figuring out what queries to ask etc.). But it wasn't so much of a breeze to download the output so I could further process the outputs. 
