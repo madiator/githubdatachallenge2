@@ -1,14 +1,53 @@
 
-# Weekend Warriors
+# Weekend Programming Languages
 
-What are the languages used by Weekend warriors? Or in other words, which languages tend to be more active during the weekends?
+What are the languages used most often during weekends? Are there some languages that are inherently more 'hobbyist' than others?  
 
+I have attempted to answer these questions for this year's [GitHub Data Challenge](https://github.com/blog/1450-the-github-data-challenge-ii).
+
+One way to answer these questions is to survey thousands of programmers about their language use over weekdays and weekends (which might be fairly difficult, or may not be economically viable). But fortunately for us, GitHub records a swath of data from which such information can be mined. Whenever programmers push code to GitHub, or do other activities such as forking, downloading etc., information is recorded.
+The data is available as downloadable `json.gz` files at the [GitHub Archive](http://www.githubarchive.org/), or as a dataset at Google BigQuery.
+
+One could argue that of all the type of events performed, `PushEvent`s could indicate the language use better than other events (such as WatchEvents). There are definitely several limitations with this approach but nevertheless, let us stick with this metric. The results when all events are used, is shown in subsequent sections.
+
+
+### Based on Push Events
+
+<img src="Images/pushEventsTh1.png"/>
+
+Here, in order to avoid too many languages, I counted only those languages which had consistently all non-zero number of events every single day. 
+
+Let us take a moment to digest this information. 
+Arduino enjoys a good spot at the top, which makes sense, since it is more of a hobby language than a mainstream one. C, C++, Java and other standard languages seem to be at the middle, which makes sense - lots of professionals, but also lots of hobbyists. 
+
+Next, let us rank this percentage use during weekends for the most popular languages.
+Here are the top-ten languages ranked, based only on `PushEvents`  (the number after the language is the number of events).
+
+
+1. JavaScript,8538319
+1. Java,5554016
+1. Ruby,5032303
+1. Python,4285711
+1. PHP,4183326
+1. C++,2645128
+1. C,2620992
+1. Shell,1330710
+1. C#,978429
+1. Perl,917207
+
+For these languages, the weekend popularity is as follows:
+
+<img src="Images/pushEventsPopular.png"/>
+
+### Based on all Event Types
+
+We could also use all the event types to understand weekend-popularity.
+The results are (again, only those languages are considered which are used everyday).
 
 <img src="Images/allEventsTh1.png"/>
 
-Here, in order to avoid too many languages, I counted only those languages which had consistently all non-zero number of events every single day. (There is a list below which has a bigger list where languages with at activities on least half the number of days are considered).
 
-Here are top-ten languages counted by aggregating all events (the number after the language is the number of events).
+As before, here are top-ten languages counted by aggregating all events (note the difference between this list and the previous list. Objective-C was not there above, but is there in this list; Perl is missing from the above).
 
 1. JavaScript,17310652
 1. Ruby,9813411
@@ -26,7 +65,7 @@ The corresponding ranking is as follows:
 <img src="Images/allEventsPopular.png"/>
 
 
-The complete list (making sure there have been events for at least have of the total number of days):
+The complete list (making sure there have been events for at least half of the total number of days):
 
 1. Nimrod,35.4411
 1. ooc,34.0698
@@ -107,29 +146,7 @@ The complete list (making sure there have been events for at least have of the t
 1. Apex,11.9424
 1. Tcl,11.0578
 
-Let us take a moment to digest this information. 
-Arduino enjoys a good spot at the top, which makes sense, since it is more of a hobby language than a mainstream one. C, C++, Java and other standard languages seem to be at the middle, which makes sense - lots of professionals, but also lots of hobbyists. 
 
-
-<img src="Images/pushEventsTh1.png"/>
-
-Here are top-ten languages ranked based only on `PushEvents`
-
->
-1. JavaScript,8538319
-1. Java,5554016
-1. Ruby,5032303
-1. Python,4285711
-1. PHP,4183326
-1. C++,2645128
-1. C,2620992
-1. Shell,1330710
-1. C#,978429
-1. Perl,917207
-
-And the corresponding figure is
-
-<img src="Images/pushEventsPopular.png"/>
 
 ### Workflow
 Thanks to Google BigQuery, it was a breeze to extract the required information from approximately 60GB of data (of course after many days of tinkering with manually downloading data, figuring out what queries to ask etc.). But it wasn't so much of a breeze to download the output so I could further process the outputs. 
@@ -140,3 +157,8 @@ The following query lists the number of events per day per language. You can add
   (SELECT repository_language, UTC_USEC_TO_DAY(PARSE_UTC_USEC(created_at))/1000000/3600/24 AS day FROM githubarchive:github.timeline WHERE repository_language IS NOT NULL)
 GROUP BY day, repository_language
 ORDER BY day`;
+
+### Limitations
+
+1. We are looking at programmers who use GitHub and who push their code to GitHub. 
+2. There are definitely many programmers who don't use GitHub for their work. 
