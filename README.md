@@ -13,7 +13,7 @@ One could argue that of all the type of events performed, `PushEvent`s could ind
 
 ### Based on Push Events
 
-<img src="Images/pushEventsTh1.png"/>
+<img src="Images/pushTh1.png"/>
 
 Here, in order to avoid too many languages, I counted only those languages which had consistently all non-zero number of events every single day. 
 
@@ -37,7 +37,7 @@ Here are the top-ten languages ranked, based only on `PushEvents`  (the number a
 
 For these languages, the weekend popularity is as follows:
 
-<img src="Images/pushEventsPopular.png"/>
+<img src="Images/pushPopular.png"/>
 
 ### Based on all Event Types
 
