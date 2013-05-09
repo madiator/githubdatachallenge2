@@ -4,7 +4,7 @@
 What are the languages used by Weekend warriors? Or in other words, which languages tend to be more active during the weekends?
 
 
-(allEventhsTh1)
+<img src="Images/allEventhsTh1"/>
 
 Here, in order to avoid too many languages, I counted only those languages which had consistently all non-zero number of events every single day. (There is a list below which has a bigger list where languages with at activities on least half the number of days are considered).
 
