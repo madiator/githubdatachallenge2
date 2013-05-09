@@ -15,14 +15,13 @@ One could argue that of all the type of events performed, `PushEvent`s could ind
 
 <img src="Images/pushTh1.png"/>
 
-Here, in order to avoid too many languages, I counted only those languages which had consistently all non-zero number of events every single day. 
+(Here, in order to avoid too many languages, I counted only those languages which had consistently all non-zero number of events every single day.) 
 
-Let us take a moment to digest this information. 
-Arduino enjoys a good spot at the top, which makes sense, since it is more of a hobby language than a mainstream one. C, C++, Java and other standard languages seem to be at the middle, which makes sense - lots of professionals, but also lots of hobbyists. 
+So Lua, D, Arduino seem to be some of the most popular languages during the weekend. Then come Common Lisp, Haskell and Clojure (what a co-incidence!). Go also seems to be pretty popular during the weekends. 
+I am not too sure what Verilog, and VHDL are doing in the middle! Coffeescript, Actionscript - yes, they make sense. I would have expected Javascript to be around the top (meaning left), but I Javascript is the most popular language (see below) and people are churning out javascript irrespective of the day. Python, Java, PHP are getting relegated to the bottom (right) - these are more for work than hobby. Matlab and R seem to be some of the least frequently used during weekends. 
 
 Next, let us rank this percentage use during weekends for the most popular languages.
-Here are the top-ten languages ranked, based only on `PushEvents`  (the number after the language is the number of events).
-
+To determine language popularity, here are the top-ten languages ranked, determined by counting the number of `PushEvents`  (the number after the language is the number of events counted from the dataset).
 
 1. JavaScript,8538319
 1. Java,5554016
