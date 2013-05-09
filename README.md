@@ -45,8 +45,9 @@ The results are (again, only those languages are considered which are used every
 
 <img src="Images/allEventsTh1.png"/>
 
+Most of the pattern followed previously still holds, except now there are a few more languages popping into the diagram.
 
-As before, here are top-ten languages counted by aggregating all events (note the difference between this list and the previous list. Objective-C was not there above, but is there in this list; Perl is missing from the above).
+And as before, here are top-ten languages counted by aggregating all events (note the difference between this list and the previous list. Objective-C was not there above, but is there in this list; Perl is missing from the above).
 
 1. JavaScript,17310652
 1. Ruby,9813411
@@ -148,7 +149,7 @@ The complete list (making sure there have been events for at least half of the t
 
 
 ### Workflow
-Thanks to Google BigQuery, it was a breeze to extract the required information from approximately 60GB of data (of course after many days of tinkering with manually downloading data, figuring out what queries to ask etc.). But it wasn't so much of a breeze to download the output so I could further process the outputs. 
+Thanks to Google BigQuery, it was a breeze to extract the required information from approximately 60GB of data (of course after many days of tinkering with manually downloading data, figuring out staring at it continously). But it wasn't so much of a breeze to download the output so I could further process them. 
 
 The following query lists the number of events per day per language. You can add a `type='PushEvent'` if you want. The downloaded CVS files are in the data folder of the repository.
 
@@ -161,3 +162,4 @@ ORDER BY day`;
 
 1. We are looking at programmers who use GitHub and who push their code to GitHub. 
 2. There are definitely many programmers who don't use GitHub for their work. 
+3. GitHub classification of languages is not all accurate.
