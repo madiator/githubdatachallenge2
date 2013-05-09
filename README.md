@@ -115,6 +115,7 @@ Arduino enjoys a good spot at the top, which makes sense, since it is more of a 
 
 Here are top-ten languages ranked based only on `PushEvents`
 
+>
 1. JavaScript,8538319
 1. Java,5554016
 1. Ruby,5032303
@@ -135,7 +136,7 @@ Thanks to Google BigQuery, it was a breeze to extract the required information f
 
 The following query lists the number of events per day per language. You can add a `type='PushEvent'` if you want. The downloaded CVS files are in the data folder of the repository.
 
-`SELECT day, repository_language, COUNT(day) AS count FROM
+> `SELECT day, repository_language, COUNT(day) AS count FROM
   (SELECT repository_language, UTC_USEC_TO_DAY(PARSE_UTC_USEC(created_at))/1000000/3600/24 AS day FROM githubarchive:github.timeline WHERE repository_language IS NOT NULL)
 GROUP BY day, repository_language
 ORDER BY day`;
