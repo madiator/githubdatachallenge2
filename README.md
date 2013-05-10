@@ -1,23 +1,25 @@
 
 # Popular Weekend Programming Languages
 
-What are the languages used most often during weekends? Are there some languages that are inherently more 'hobbyist' than others?  
+What are some languages used most often during the weekends? Are there some languages that are inherently more 'hobbyist' than others?  
 
 I have attempted to answer these questions for this year's [GitHub Data Challenge](https://github.com/blog/1450-the-github-data-challenge-ii).
 
-One way to answer these questions is to survey thousands of programmers about their language use over weekdays and weekends (which might be fairly difficult, or may not be economically viable). But fortunately for us, GitHub records a swath of data from which such information can be mined. Whenever programmers push code to GitHub, or do other activities such as forking, downloading etc., information is recorded.
-The data is available as downloadable `json.gz` files at the [GitHub Archive](http://www.githubarchive.org/), or as a dataset at Google BigQuery.
+One way to answer these questions is to survey thousands of programmers about their language use over weekdays and weekends (which might be fairly difficult, and may not be economically viable). But fortunately for us, GitHub records a swath of data from which such information can be mined. Whenever programmers push code to GitHub, or do other activities such as forking, downloading etc., information is recorded.
+The data is available to be downloadable as `json` files at the [GitHub Archive](http://www.githubarchive.org/), or as a dataset at Google BigQuery. I used the latter.
 
 One could argue that of all the type of events performed, `PushEvent`s could indicate the language use better than other events (such as WatchEvents). There are definitely several limitations with this approach but nevertheless, let us stick with this metric. The results when all events are used, is shown in subsequent sections.
 
+The high level overview of what I did is as follows: for each language, the number of pushes during the weekends is counted and is divided by the total number of pushes (for that language) to get a ratio for that language. This ratio will indicate roughly how active these programming languages have been during weekends, and so I used these ratios to rank the languages from the most weekend-oriented to the least weekend-oriented.
 
-### Based on Push Events
+
+## Results
 
 <img src="Images/pushTh1.png"/>
 
 (Here, in order to avoid too many languages, I counted only those languages which had consistently all non-zero number of events every single day.) 
 
-So Lua, D, Arduino seem to be some of the most popular languages during the weekend. Then come Common Lisp, Haskell and Clojure (what a co-incidence!). Go also seems to be pretty popular during the weekends. 
+So Lua, D and Arduino seem to be some of the most popular languages during the weekend. Then come Common Lisp, Haskell and Clojure (what a co-incidence!). Go also seems to be pretty popular during the weekends. 
 I am not too sure what Verilog, and VHDL are doing in the middle! Coffeescript, Actionscript - yes, they make sense. I would have expected Javascript to be around the top (meaning left), but I Javascript is the most popular language (see below) and people are churning out javascript irrespective of the day. Python, Java, PHP are getting relegated to the bottom (right) - these are more for work than hobby. Matlab and R seem to be some of the least frequently used during weekends. 
 
 Next, let us rank this percentage use during weekends for the most popular languages.
@@ -38,10 +40,13 @@ For these languages, the weekend popularity is as follows:
 
 <img src="Images/pushPopular.png"/>
 
-### Based on all Event Types
+Note that these ratios are not that different, so I would argue that one shouldn't try to find out why C is before C#. But the overall point here is that Perl seems to be used more often during weekends than Java.
 
-We could also use all the event types to understand weekend-popularity.
-The results are (again, only those languages are considered which are used everyday).
+### Results based on all Event Types
+
+Why just count the PushEvents? One could as well include the WatchEvents and ForkEvents, and may be something else. To keep things simple, I did the same analysis by counting all types of events.
+
+The results are below (again, only those languages are considered which are used everyday).
 
 <img src="Images/allEventsTh1.png"/>
 
@@ -149,17 +154,23 @@ The complete list (making sure there have been events for at least half of the t
 
 
 ### Workflow
-Thanks to Google BigQuery, it was a breeze to extract the required information from approximately 60GB of data (of course after many days of tinkering with manually downloading data, figuring out staring at it continously). But it wasn't so much of a breeze to download the output so I could further process them. 
+Thanks to Google BigQuery, it was a breeze to extract the required information from approximately 60GB of data (of course after many days of tinkering with manually downloading data, figuring out staring at it continuously). But it wasn't so much of a breeze to download the output so I could further process them. So I have put the csv files in the Data directory. Feel free to use them.
+
+I used all the data on BigQuery (which started from 11th March 2012 until 8th May 2013, for a total of 424 days). 
+
 
 The following query lists the number of events per day per language. You can add a `type='PushEvent'` if you want. The downloaded CVS files are in the data folder of the repository.
 
-> `SELECT day, repository_language, COUNT(day) AS count FROM
+```sql
+`SELECT day, repository_language, COUNT(day) AS count FROM
   (SELECT repository_language, UTC_USEC_TO_DAY(PARSE_UTC_USEC(created_at))/1000000/3600/24 AS day FROM githubarchive:github.timeline WHERE repository_language IS NOT NULL)
 GROUP BY day, repository_language
 ORDER BY day`;
+```
 
 ### Limitations
 
 1. We are looking at programmers who use GitHub and who push their code to GitHub. 
 2. There are definitely many programmers who don't use GitHub for their work. 
-3. GitHub classification of languages is not all accurate.
+3. GitHub classification of languages is not always accurate (http://datahackermd.com/2013/language-use-on-github/#comment-798271901).
+4. I haven't accounted for different timezones. While it may not be too difficult to account for it, I think its not worth the effort. Only location information of the programmers are recorded, which can be ambiguous/inaccurate. 
