@@ -162,15 +162,24 @@ I used all the data on BigQuery (which started from 11th March 2012 until 8th Ma
 The following query lists the number of events per day per language. You can add a `type='PushEvent'` if you want. The downloaded CVS files are in the data folder of the repository.
 
 ```sql
-`SELECT day, repository_language, COUNT(day) AS count FROM
+SELECT day, repository_language, COUNT(day) AS count FROM
   (SELECT repository_language, UTC_USEC_TO_DAY(PARSE_UTC_USEC(created_at))/1000000/3600/24 AS day FROM githubarchive:github.timeline WHERE repository_language IS NOT NULL)
 GROUP BY day, repository_language
-ORDER BY day`;
+ORDER BY day;
 ```
+## Conclusion and Reflections
+There are indeed several limitations (see below) of this work. The goal here is to not obtain absolute truths, but to try to glean into vast amounts of data and see what it says. Are there some patterns in it, is there something in here that we don't know? 
+I definitely think this work tells us something about the various programming languages. And if anything, it has helped me view programming languages from a different perspective.
+
+I started out with some other plans: 
+
+1. Compute PageRanks of the various repositories based on the repository fork graph to determine their relative importance. I was mainly interested in doing so since I think there must be a difference between the [ordered list of popular repositories (in terms of the number of forks)](https://github.com/popular/forked) vs the ordered list of important repositories. For example, Spoon-Knife is the second most forked repository, but its importance should be very low. Getting this graph from BigQuery was very hard and so I had to abandon it. 
+
+2. I wanted to see whether news announcements or product launches cause more people to get interested in that language, and therefore more pushes in that language. But from the limited analysis I did, I am afraid I couldn't find anything like that (may be that tells us something?). For example, [Bit.ly announced a realtime distributed message processing system called NSQ on 9th October 2012](http://word.bitly.com/post/33232969144/nsq) and I saw a nice discernible spike in the number of watch events, but I couldn't see any such trend for the push events. 
 
 ### Limitations
 
-1. We are looking at programmers who use GitHub and who push their code to GitHub. 
-2. There are definitely many programmers who don't use GitHub for their work. 
-3. GitHub classification of languages is not always accurate (http://datahackermd.com/2013/language-use-on-github/#comment-798271901).
+1. The data is limited to only those programmers who use GitHub (gasp!).
+2. There are definitely many programmers who don't use GitHub for their work. So all those repositories are not taken into account (which is probably good).
+3. GitHub classification of languages is not always accurate (see http://datahackermd.com/2013/language-use-on-github/#comment-798271901).
 4. I haven't accounted for different timezones. While it may not be too difficult to account for it, I think its not worth the effort. Only location information of the programmers are recorded, which can be ambiguous/inaccurate. 
