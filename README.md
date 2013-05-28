@@ -183,3 +183,5 @@ I started out with some other plans:
 2. There are definitely many programmers who don't use GitHub for their work. So all those repositories are not taken into account (which is probably good).
 3. GitHub classification of languages is not always accurate (see http://datahackermd.com/2013/language-use-on-github/#comment-798271901).
 4. I haven't accounted for different timezones. While it may not be too difficult to account for it, I think its not worth the effort. Only location information of the programmers are recorded, which can be ambiguous/inaccurate. 
+
+Update: Fixed two graphs that were showing erroneous values. Blogged this at [my blog](http://smahesh.com/blog/2013/05/27/popular-weekend-programming-languages/) - might update there with more details.
